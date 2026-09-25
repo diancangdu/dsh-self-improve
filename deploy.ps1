@@ -5,7 +5,7 @@
 $ErrorActionPreference = "Stop"
 
 $Src = $PSScriptRoot
-$DshHome = if ($env:DSH_HOME) { $env:DSH_HOME } else { "F:\DSH-Home\.dsh" }
+$DshHome = if ($env:DSH_HOME) { $env:DSH_HOME } else { Join-Path $HOME ".dsh" }
 $SkillName = "dsh-self-improve"
 $SkillDest = Join-Path $DshHome "skills\$SkillName"
 $HooksDir = Join-Path $DshHome "hooks"
@@ -177,7 +177,7 @@ $pyTmp = Join-Path $env:TEMP ("si_deploy_" + [guid]::NewGuid().ToString("N") + "
 [System.IO.File]::WriteAllText($pyTmp, $pyCode, [System.Text.UTF8Encoding]::new($false))
 
 $python = "python"
-foreach ($cand in @("D:\Python\python3.14.7\python.exe", "python3", "py", "python")) {
+foreach ($cand in @("python3", "py", "python")) {
     if ($cand -eq "python") { break }
     $cmd = Get-Command $cand -ErrorAction SilentlyContinue
     if ($cmd) { $python = $cand; break }

@@ -8,8 +8,8 @@ $ErrorActionPreference = "Stop"
 # Source dir = this script's directory
 $Src = $PSScriptRoot
 
-# Target: prefer DSH_HOME env var, else default path
-$DshHome = if ($env:DSH_HOME) { $env:DSH_HOME } else { "F:\DSH-Home\.dsh" }
+# Target: prefer DSH_HOME env var, else the conventional per-user location
+$DshHome = if ($env:DSH_HOME) { $env:DSH_HOME } else { Join-Path $HOME ".dsh" }
 $Dest = Join-Path $DshHome "skills\dsh-self-improve"
 
 Write-Host "== Codex Self-Improve - Install =="

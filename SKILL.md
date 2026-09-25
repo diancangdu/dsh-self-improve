@@ -33,9 +33,8 @@ DSH 的 shell 工具**不保证**带有 `CODEX_LEARNINGS_DIR` 等自定义环境
 所以统一用**显式 `--dir`** 最稳（工具自带该参数）：
 
 ```powershell
-& 'D:/Python/python3.14.7/python.exe' `
-  '$DSH_HOME/skills/dsh-self-improve\learn.py' `
-  query "关键词" --dir '$DSH_HOME/skills/dsh-self-improve\.learnings'
+python "$DSH_HOME/skills/dsh-self-improve/learn.py" `
+  query "关键词" --dir "$DSH_HOME/skills/dsh-self-improve/.learnings"
 ```
 
 `add` / `review` / `status` 同理都支持 `--dir`。不加 `--dir` 时会走兜底路径，
