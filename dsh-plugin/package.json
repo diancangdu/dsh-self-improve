@@ -1,0 +1,11 @@
+{
+  "name": "dsh-self-improve-hooks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Native DSH hooks for the self-improve loop: inject learnings at session start, remind to reflect at turn end.",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  }
+}
