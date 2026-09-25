@@ -9,6 +9,21 @@
 - **加载**：任务前 → `learn.py query "关键词"` 查相关经验，命中就照做。
 - **自动注入**：SessionStart hook 自动把经验精华注入新会话上下文，开局就"记得"。
 
+## 装到哪个宿主
+
+| 宿主 | 用哪套 | 说明 |
+|---|---|---|
+| Claude Code / Codex | `deploy.ps1`（或 `install_skill.ps1`） | 走它们的 hook 协议（stdin 收 JSON、stdout 回决策） |
+| **DeepSeek Harness (DSH)** | **`dsh-plugin/`** | ⚠️ 脚本式 hooks **在 DSH 上会静默失效** —— DSH 的会话事件不走那套协议，照搬会「装上了但什么都不做」 |
+
+`dsh-plugin/` 是 DSH 的原生 hook 适配层，用 DSH 自己的扩展点重写了同样的职责：
+会话开始注入经验（`agent/created`）、**仅当本轮有工具失败时**才提醒反思（`agent/turn-stopping`）。
+安装方式、配置项与验证判据见 [`dsh-plugin/README.md`](dsh-plugin/README.md)，
+两条安装路线（自动化 / 手动）见 [`INSTALL.md`](INSTALL.md)。
+
+另外两处容易踩的坑，都写在 `dsh-plugin/README.md` 里：`isError` **不覆盖**普通命令的非零退出码；
+以及「提示词的形状决定输出的形状」—— 想让模型静默，提示词里必须显式禁止输出。
+
 ## 快速开始
 
 ```bash
